@@ -1,5 +1,6 @@
 package com.marcobehler.springbootdemo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +21,6 @@ public class Customer {
 
     private Status status;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate birthDate;
 }
