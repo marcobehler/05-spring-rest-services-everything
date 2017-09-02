@@ -39,4 +39,8 @@ public class CustomerService {
         return customerInDb;
     }
 
+    public void deleteCustomer(Customer customer) {
+        boolean removedCustomer = customerDb.removeIf(c -> c.getId().equals(customer.getId()));
+        if (!removedCustomer) throw new ResourceNotFoundException();
+    }
 }

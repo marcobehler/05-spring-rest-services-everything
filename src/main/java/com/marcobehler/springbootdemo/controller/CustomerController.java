@@ -3,6 +3,7 @@ package com.marcobehler.springbootdemo.controller;
 import com.marcobehler.springbootdemo.domain.Customer;
 import com.marcobehler.springbootdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +30,11 @@ public class CustomerController {
     @PutMapping // HTTP put
     public Customer updateCustomer(@RequestBody Customer customer) {
         return service.updateCustomer(customer);
+    }
+
+    @DeleteMapping // HTTP delete
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteCustomer(@RequestBody Customer customer) {
+        service.deleteCustomer(customer);
     }
 }
