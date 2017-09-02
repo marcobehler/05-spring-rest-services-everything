@@ -32,9 +32,9 @@ public class CustomerController {
         return service.updateCustomer(customerId, customer);
     }
 
-    @DeleteMapping // HTTP delete
+    @DeleteMapping("/customers/{customerId}") // HTTP delete
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@RequestBody Customer customer) {
-        service.deleteCustomer(customer);
+    public void deleteCustomer(@PathVariable Integer customerId) {
+        service.deleteCustomer(customerId);
     }
 }
