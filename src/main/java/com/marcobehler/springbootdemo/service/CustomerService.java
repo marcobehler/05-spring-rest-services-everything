@@ -27,9 +27,9 @@ public class CustomerService {
         return customer;
     }
 
-    public Customer updateCustomer(Customer customer) { // TODO DTO and Validation.....
+    public Customer updateCustomer(Integer customerId, Customer customer) { // TODO DTO and Validation.....
         Customer customerInDb = customerDb.stream()
-                .filter(c -> c.getId().equals(customer.getId()))
+                .filter(c -> c.getId().equals(customerId))
                 .findFirst()
                 .orElseThrow(ResourceNotFoundException::new);
         customerInDb.setFirstName(customer.getFirstName());
