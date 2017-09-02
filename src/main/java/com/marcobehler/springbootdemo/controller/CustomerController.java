@@ -4,6 +4,8 @@ import com.marcobehler.springbootdemo.domain.Customer;
 import com.marcobehler.springbootdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,5 +22,10 @@ public class CustomerController {
     @GetMapping
     public List<Customer> customers() {
         return service.findAllCustomers();
+    }
+
+    @PostMapping // HTTP post
+    public Customer createCustomer(@RequestBody Customer customer) {
+        return service.createCustomer(customer);
     }
 }
