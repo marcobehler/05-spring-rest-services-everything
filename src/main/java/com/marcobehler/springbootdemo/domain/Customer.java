@@ -1,8 +1,7 @@
 package com.marcobehler.springbootdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -11,6 +10,9 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     private Integer id;

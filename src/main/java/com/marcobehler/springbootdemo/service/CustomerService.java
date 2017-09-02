@@ -1,5 +1,6 @@
 package com.marcobehler.springbootdemo.service;
 
+import com.marcobehler.springbootdemo.controller.ResourceNotFoundException;
 import com.marcobehler.springbootdemo.domain.Customer;
 import org.springframework.stereotype.Service;
 
@@ -25,4 +26,17 @@ public class CustomerService {
         customerDb.add(customer);
         return customer;
     }
+
+    public Customer updateCustomer(Customer customer) {
+        Customer customerInDb = customerDb.stream()
+                .filter(c -> c.getId().equals(customer.getId()))
+                .findFirst()
+                .orElseThrow(ResourceNotFoundException::new);
+        customerInDb.setFirstName(customer.getFirstName());
+        customerInDb.setLastName(customer.getLastName());
+        customerInDb.setBirthDate(customer.getBirthDate());
+        customerInDb.setStatus(customer.getStatus());
+        return customerInDb;
+    }
+
 }

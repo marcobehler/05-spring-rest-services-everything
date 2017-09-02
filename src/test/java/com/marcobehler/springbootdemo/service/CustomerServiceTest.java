@@ -1,9 +1,12 @@
 package com.marcobehler.springbootdemo.service;
 
 
+import com.marcobehler.springbootdemo.controller.ResourceNotFoundException;
 import com.marcobehler.springbootdemo.domain.Customer;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,4 +41,21 @@ public class CustomerServiceTest {
         assertThat(service.findAllCustomers()).hasSize(1);
 
     }
+
+    @Test
+    public void updateCustomer_works_for_existing_customer() throws Exception {
+        Integer customerId = service.createCustomer(Customer.builder().firstName("John").lastName("Snow").build()).getId();
+
+        Customer updatedCustomer = service.updateCustomer(Customer.builder().id(customerId).firstName("Aegon").lastName("Targaryen").build());
+
+        assertThat(updatedCustomer.getId()).isEqualTo(customerId);
+        assertThat(updatedCustomer.getFirstName()).isEqualTo("Aegon");
+        assertThat(updatedCustomer.getLastName()).isEqualTo("Targaryen");
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void updateCustomer_fails_for_non_existing_id() throws Exception {
+        service.updateCustomer(Customer.builder().id(ThreadLocalRandom.current().nextInt()).firstName("Aegon").lastName("Targaryen").build());
+    }
+
 }
