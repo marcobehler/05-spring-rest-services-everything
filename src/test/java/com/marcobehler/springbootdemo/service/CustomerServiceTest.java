@@ -46,7 +46,7 @@ public class CustomerServiceTest {
     public void updateCustomer_works_for_existing_customer() throws Exception {
         Integer customerId = service.createCustomer(Customer.builder().firstName("John").lastName("Snow").build()).getId();
 
-        Customer updatedCustomer = service.updateCustomer(Customer.builder().id(customerId).firstName("Aegon").lastName("Targaryen").build());
+        Customer updatedCustomer = service.updateCustomer(customerId, Customer.builder().id(customerId).firstName("Aegon").lastName("Targaryen").build());
 
         assertThat(updatedCustomer.getId()).isEqualTo(customerId);
         assertThat(updatedCustomer.getFirstName()).isEqualTo("Aegon");
@@ -55,7 +55,7 @@ public class CustomerServiceTest {
 
     @Test(expected = ResourceNotFoundException.class)
     public void updateCustomer_fails_for_non_existing_id() throws Exception {
-        service.updateCustomer(Customer.builder().id(ThreadLocalRandom.current().nextInt()).firstName("Aegon").lastName("Targaryen").build());
+        service.updateCustomer(ThreadLocalRandom.current().nextInt(), Customer.builder().firstName("Aegon").lastName("Targaryen").build());
     }
 
 }

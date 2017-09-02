@@ -27,9 +27,9 @@ public class CustomerController {
         return service.createCustomer(customer);
     }
 
-    @PutMapping // HTTP put
-    public Customer updateCustomer(@RequestBody Customer customer) {
-        return service.updateCustomer(customer);
+    @PutMapping("/customers/{customerId}") // HTTP put
+    public Customer updateCustomer(@PathVariable Integer customerId, @RequestBody Customer customer) {
+        return service.updateCustomer(customerId, customer);
     }
 
     @DeleteMapping // HTTP delete
