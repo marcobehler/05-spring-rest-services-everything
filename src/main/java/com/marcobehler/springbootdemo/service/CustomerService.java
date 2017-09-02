@@ -27,7 +27,7 @@ public class CustomerService {
         return customer;
     }
 
-    public Customer updateCustomer(Customer customer) {
+    public Customer updateCustomer(Customer customer) { // TODO DTO and Validation.....
         Customer customerInDb = customerDb.stream()
                 .filter(c -> c.getId().equals(customer.getId()))
                 .findFirst()
