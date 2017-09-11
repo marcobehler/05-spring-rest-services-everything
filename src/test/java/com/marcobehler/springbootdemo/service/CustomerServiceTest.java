@@ -58,4 +58,18 @@ public class CustomerServiceTest {
         service.updateCustomer(ThreadLocalRandom.current().nextInt(), Customer.builder().firstName("Aegon").lastName("Targaryen").build());
     }
 
+
+    @Test
+    public void getCustomer_works_for_existing_Customer() throws Exception {
+        Customer customer = new Customer();
+        customer.setFirstName("John");
+        customer.setLastName("Snow");
+        Integer customerId = service.createCustomer(customer).getId();
+
+        Customer savedCustomer = service.getCustomer(customerId);
+
+        assertThat(savedCustomer).isNotNull();
+        assertThat(savedCustomer.getId()).isEqualTo(customerId);
+        assertThat(savedCustomer.getFirstName()).isEqualTo("John");
+    }
 }

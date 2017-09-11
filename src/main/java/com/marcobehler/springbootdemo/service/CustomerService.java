@@ -28,10 +28,7 @@ public class CustomerService {
     }
 
     public Customer updateCustomer(Integer customerId, Customer customer) { // TODO DTO and Validation.....
-        Customer customerInDb = customerDb.stream()
-                .filter(c -> c.getId().equals(customerId))
-                .findFirst()
-                .orElseThrow(ResourceNotFoundException::new);
+        Customer customerInDb = getCustomer(customerId);
         customerInDb.setFirstName(customer.getFirstName());
         customerInDb.setLastName(customer.getLastName());
         customerInDb.setBirthDate(customer.getBirthDate());
@@ -42,5 +39,12 @@ public class CustomerService {
     public void deleteCustomer(Integer customerId) {
         boolean removedCustomer = customerDb.removeIf(c -> c.getId().equals(customerId));
         if (!removedCustomer) throw new ResourceNotFoundException();
+    }
+
+    public Customer getCustomer(Integer customerId) {
+        return customerDb.stream()
+                .filter(c -> c.getId().equals(customerId))
+                .findFirst()
+                .orElseThrow(ResourceNotFoundException::new);
     }
 }

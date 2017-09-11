@@ -12,6 +12,7 @@ import java.util.List;
  * Thanks for watching this episode! Send any feedback to info@marcobehler.com!
  */
 @RestController(value = "/customers")
+@CrossOrigin
 public class CustomerController {
 
     @Autowired
@@ -20,6 +21,11 @@ public class CustomerController {
     @GetMapping
     public List<Customer> customers() {
         return service.findAllCustomers();
+    }
+
+    @GetMapping("/customers/{customerId}")
+    public Customer getCustomer(@PathVariable Integer customerId) {
+        return service.getCustomer(customerId);
     }
 
     @PostMapping // HTTP post
@@ -37,4 +43,5 @@ public class CustomerController {
     public void deleteCustomer(@PathVariable Integer customerId) {
         service.deleteCustomer(customerId);
     }
+
 }
