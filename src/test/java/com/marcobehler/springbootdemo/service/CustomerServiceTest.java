@@ -5,6 +5,11 @@ import com.marcobehler.springbootdemo.controller.ResourceNotFoundException;
 import com.marcobehler.springbootdemo.domain.Customer;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -13,14 +18,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Thanks for watching this episode! Send any feedback to info@marcobehler.com!
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Import(CustomerService.class)
 public class CustomerServiceTest {
 
+    @Autowired
     private CustomerService service;
-
-    @Before
-    public void setUp() throws Exception {
-        service = new CustomerService();
-    }
 
     @Test
     public void finds_no_customers_with_empty_db() throws Exception {

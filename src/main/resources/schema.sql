@@ -1,0 +1,1 @@
+create table customers (id int PRIMARY KEY , first_name VARCHAR(100), last_name VARCHAR(100), status VARCHAR(20), birth_date date);

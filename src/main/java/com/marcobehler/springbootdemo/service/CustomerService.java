@@ -2,8 +2,11 @@ package com.marcobehler.springbootdemo.service;
 
 import com.marcobehler.springbootdemo.controller.ResourceNotFoundException;
 import com.marcobehler.springbootdemo.domain.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,7 +17,14 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class CustomerService {
 
-    private List<Customer> customerDb = new ArrayList<>();
+    @Autowired
+    private DataSource dataSource; // should be an h2 datasource
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate; // allows you to execute sql!
+
+
+    private List<Customer> customerDb = new ArrayList<>(); // TODO write sql queries
 
     public List<Customer> findAllCustomers() {
         return customerDb;
