@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,6 +26,15 @@ public class CustomerServiceTest {
 
     @Autowired
     private CustomerService service;
+
+
+    @Autowired
+    private JdbcTemplate template;
+
+    @Before
+    public void setUp() throws Exception {
+        template.update("truncate table customers");
+    }
 
     @Test
     public void finds_no_customers_with_empty_db() throws Exception {
