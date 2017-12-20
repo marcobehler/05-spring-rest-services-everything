@@ -21,51 +21,22 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CustomerService {
 
     @Autowired
-    private DataSource dataSource; // should be an h2 datasource
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate; // allows you to execute sql!
-
+    private CustomerRepository customerRepository;
 
     public List<Customer> findAllCustomers() {
-        return jdbcTemplate.query("select id, first_name, last_name, birth_date, status from customers",
-                this::customerMapper);
+        return customerRepository.findAll();
     }
 
     public Customer getCustomer(Integer customerId) {
-        return jdbcTemplate.queryForObject("select id, first_name, last_name, birth_date, status from customers where id = ?",
-                new Object[]{customerId}, this::customerMapper);
-    }
-
-    private Customer customerMapper(ResultSet resultSet, int i) throws SQLException {
-        Customer c = new Customer();
-        c.setId(resultSet.getInt("id"));
-        c.setFirstName(resultSet.getString("first_name"));
-        c.setLastName(resultSet.getString("last_name"));
-        if (resultSet.getDate("birth_date") != null) {
-            c.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
-        }
-        if (resultSet.getString("status") != null) {
-            c.setStatus(Status.valueOf(resultSet.getString("status")));
-        }
-        return c;
+        return customerRepository.findOne(customerId);
     }
 
     public Customer createCustomer(Customer customer) {
-        int id = ThreadLocalRandom.current().nextInt();
-        customer.setId(id);
-        jdbcTemplate.update("insert into customers (id, first_name, last_name, birth_date, status) VALUES (?,?,?,?,?)",
-                id, customer.getFirstName(), customer.getLastName(), customer.getBirthDate(), customer.getStatus());
-        return customer;
+        return customerRepository.save(customer);
     }
 
     public Customer updateCustomer(Integer customerId, Customer customer) { // TODO DTO and Validation.....
-        int updateCount = jdbcTemplate.update("update customers set first_name = ?, last_name = ?, birth_date = ?, status = ? where id = ?",
-                customer.getFirstName(), customer.getLastName(), customer.getBirthDate(), customer.getStatus(), customerId);
-        if (updateCount == 0) {
-            throw new ResourceNotFoundException();
-        }
-        return customer;
+        throw new UnsupportedOperationException("todo");
     }
 
     public void deleteCustomer(Integer customerId) {

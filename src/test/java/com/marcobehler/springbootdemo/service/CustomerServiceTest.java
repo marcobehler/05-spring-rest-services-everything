@@ -29,11 +29,11 @@ public class CustomerServiceTest {
 
 
     @Autowired
-    private JdbcTemplate template;
+    private CustomerRepository customerRepository;
 
     @Before
     public void setUp() throws Exception {
-        template.update("truncate table customers");
+        customerRepository.deleteAllInBatch();
     }
 
     @Test
