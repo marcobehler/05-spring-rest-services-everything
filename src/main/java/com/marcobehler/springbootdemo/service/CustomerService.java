@@ -2,10 +2,9 @@ package com.marcobehler.springbootdemo.service;
 
 import com.marcobehler.springbootdemo.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Thanks for watching this episode! Send any feedback to info@marcobehler.com!
@@ -16,8 +15,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public List<Customer> findAllCustomers(Sort sort) {
-        return customerRepository.findAll(sort);
+    public Page<Customer> findAllCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     public Customer getCustomer(Integer customerId) {
