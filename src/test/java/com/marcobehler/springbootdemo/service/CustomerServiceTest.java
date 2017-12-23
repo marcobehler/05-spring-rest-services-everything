@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,7 +37,7 @@ public class CustomerServiceTest {
 
     @Test
     public void finds_no_customers_with_empty_db() throws Exception {
-        assertThat(service.findAllCustomers()).isEmpty();
+        assertThat(service.findAllCustomers(null)).isEmpty();
     }
 
     @Test
@@ -47,12 +46,12 @@ public class CustomerServiceTest {
         customer.setFirstName("John");
         customer.setLastName("Snow");
 
-        assertThat(service.findAllCustomers()).isEmpty(); // no customer saved yet!
+        assertThat(service.findAllCustomers(null)).isEmpty(); // no customer saved yet!
 
         Customer savedCustomer = service.createCustomer(customer);
 
         assertThat(savedCustomer.getId()).isNotNull();
-        assertThat(service.findAllCustomers()).hasSize(1);
+        assertThat(service.findAllCustomers(null)).hasSize(1);
 
     }
 

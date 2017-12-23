@@ -2,6 +2,7 @@ package com.marcobehler.springbootdemo.service;
 
 import com.marcobehler.springbootdemo.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public List<Customer> findAllCustomers() {
-        return customerRepository.findAll();
+    public List<Customer> findAllCustomers(Sort sort) {
+        return customerRepository.findAll(sort);
     }
 
     public Customer getCustomer(Integer customerId) {

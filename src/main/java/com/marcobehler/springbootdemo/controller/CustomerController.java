@@ -3,6 +3,7 @@ package com.marcobehler.springbootdemo.controller;
 import com.marcobehler.springbootdemo.domain.Customer;
 import com.marcobehler.springbootdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class CustomerController {
     private CustomerService service;
 
     @GetMapping
-    public List<Customer> customers() {
-        return service.findAllCustomers();
+    public List<Customer> customers(Sort sort) { // http://....../?sort=property,asc|desc
+        return service.findAllCustomers(sort);
     }
 
     @GetMapping("/customers/{customerId}")

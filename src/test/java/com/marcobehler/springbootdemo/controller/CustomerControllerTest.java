@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -43,7 +42,7 @@ public class CustomerControllerTest {
         customer.setLastName("Snow");
         customer.setStatus(Status.FRAUDSTER);
 
-        given(this.customerService.findAllCustomers())
+        given(this.customerService.findAllCustomers(null))
                 .willReturn(Arrays.asList(customer));
 
         this.mvc.perform(get("/customers").accept(MediaType.APPLICATION_JSON_UTF8))
