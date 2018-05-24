@@ -71,6 +71,10 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -81,6 +85,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
