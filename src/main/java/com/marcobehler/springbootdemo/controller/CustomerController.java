@@ -19,6 +19,7 @@ public class CustomerController {
     private CustomerService service;
 
 
+    // Map<CustomerId,Etag>
      // TODO DOCS!
 
     @GetMapping
