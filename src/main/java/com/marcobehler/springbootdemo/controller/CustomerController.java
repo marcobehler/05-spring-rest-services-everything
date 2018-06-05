@@ -22,7 +22,7 @@ public class CustomerController {
     // Map<CustomerId,Etag>
      // TODO DOCS!
 
-    @GetMapping
+    @GetMapping(value = "/customers")
     public Page<Customer> customers(Pageable pageable) { // http://....../?sort=property,asc|desc
         return service.findAllCustomers(pageable);
     }
@@ -32,7 +32,7 @@ public class CustomerController {
         return service.getCustomer(customerId);
     }
 
-    @PostMapping // HTTP post
+    @PostMapping(value = "/customers") // HTTP post
     public Customer createCustomer(@RequestBody Customer customer) {
         return service.createCustomer(customer);
     }
